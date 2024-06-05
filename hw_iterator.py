@@ -1,15 +1,21 @@
-2
-class EvenNumbers:
-    def __init__(self, max):
+class EvenNumbers(object):
+    def __init__(self,min, max):
         self.max = max
-        self.num = 0
+        if min % 2 != 0:
+            self.current = min + 1
+        else:
+            self.current = min
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self.num & gt;= self.max:
+        if self.current > self.max:
             raise StopIteration
         else:
-            self.num += 2
-            return self.num - 2
+            self.current += 2
+            return self.current - 2
+
+evnt_num = EvenNumbers(1, 15)
+
+print(list(evnt_num))
