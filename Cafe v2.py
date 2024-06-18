@@ -38,8 +38,11 @@ class Cafe(Thread):
 # -----------------------------------------------
 # Класс столов
 class Table():
-    def __init__(self, amount_table):
+    def __init__(self, amount_table, amount_visitor =20, *args):
+        super().__init__(*args)
         self.amount_table = amount_table
+        self.amount_tables = amount_tables
+        self.amount_visitor = amount_visitor
         # self.is_busy = False  #  is_busy = False  - столик не занят
         self.tables = {key: False for key in range(1, self.amount_table + 1)}  # генерим свободные столики
 

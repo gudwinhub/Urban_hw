@@ -8,10 +8,12 @@ from queue import Queue
 # q = queue.Queue(2)
 class Cafe:     # (Thread)
 
-    def __init__(self, num_tables, amoun_visitor = 20, *args):  # table_free = True
+    def __init__(self, amount_tables, amount_visitor = 20, *args):  # table_free = True
         super().__init__(*args)
+        self.amount_tables = amount_tables
+        self.amount_visitor =amount_visitor
         self.queue_visitor = Queue  # queue.Queue(maxsize= )
-        self.tables = Table(amoun_table)
+        self.tables = Table(amount_tables)
 
         # self.queue_visitor = 0  # очередь посетителей в кафе
         # self.tables = tables
@@ -88,12 +90,16 @@ class Table:
 
 
 
-tables = Table(5)
-print(tables.get_free_table())
+# tables = Table(5)
+# print(tables.get_free_table())
 
 
 
-# cafe = Cafe(3)
+cafe = Cafe(5)
+
+print(cafe.visitor_served())
+
+
 # num_tables =5
 # tables = dict([Table(i+1).get_param() for i in range(num_tables)])
 # print(list(tables.values()))
