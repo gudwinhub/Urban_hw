@@ -37,7 +37,8 @@ class Cafe(Thread):
     def __run__(self):
         # queue_visitor.get(k)
         while not queue_visitor.empy():
-            visitor_served(queue_visitor.get(k))
+            num_vistr = queue_visitor.get(k)
+            visitor_served(num_vistr)
         
 
 # ------------------------------------------------------------------------------
@@ -76,16 +77,16 @@ class Table:
 
 # Класс Посетитель - генерит поток желающих поесть
 class Visitor(Thread):  # класс Посетитель - гененрирует независимый поток голодных посетителей :-)
-    def __init__(self,amount_visitor = 20, * args):  # name, queue_visitor
+    def __init__(self, amount_visitors = 20, * args):  # name, queue_visitor
         super().__init__(*args)
-        self.amount_visitor = amount_visitor
+        self.amount_vistrs = amount_visitors
         self.lock = threading.Lock()
 
     def thr_visitor(self):
-        for k in range(1, self.amount_visitor + 1):
-            self.lock.acquire()
+        for k in range(1, self.amount_vistrs + 1):
             try:
-                # print('поток посетителей  получил блокировку')
+                self.lock.acquire()
+                print('поток посетителей  получил блокировку')
                 queue_visitor.put(k)
                 print(f'Посетитель {k} желает отобедать занимает очередь в кафе')
             finally:
@@ -96,8 +97,9 @@ class Visitor(Thread):  # класс Посетитель - гененрируе
 cafe = Cafe(5) # задаем количество столиков в кафе (по умолчанию = 3)
 visitors = Visitor(30) # задаем размер оока посетителей (по умолчанию = 20
 
-cafe.start()
-visitors.start()
 
-cafe.join()
+visitors.start(25)
+cafe.start()
+
 visitors.join()
+cafe.join(timeout = 2)
