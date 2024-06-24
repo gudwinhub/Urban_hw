@@ -95,3 +95,9 @@ class Visitor(Thread):  # класс Посетитель - гененрируе
 
 cafe = Cafe(5) # задаем количество столиков в кафе (по умолчанию = 3)
 visitors = Visitor(30) # задаем размер оока посетителей (по умолчанию = 20
+
+cafe.start()
+visitors.start()
+
+cafe.join()
+visitors.join()
